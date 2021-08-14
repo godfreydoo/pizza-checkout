@@ -81,17 +81,17 @@ module.exports.pizzas = [
   }
 ];
 
-module.exports.toppings = {
-  'Pepperoni': true,
-  'Imported Ham': true,
-  'Genoa Salami': true,
-  'Anchovies': true,
-  'Mushrooms': true,
-  'Roma Tomato': true,
-  'White Onions': true,
-  'Italian Sausage': true,
-  'Extra Cheese': true,
-  'Pineapple': true,
-  'Bell pepper': true,
-  'Grilled Chicken': true,
-};
+module.exports.toppings = [
+  'Pepperoni',
+  'Imported Ham',
+  'Genoa Salami',
+  'Anchovies',
+  'Mushrooms',
+  'Roma Tomato',
+  'White Onions',
+  'Italian Sausage',
+  'Extra Cheese',
+  'Pineapple',
+  'Bell pepper',
+  'Grilled Chicken',
+];
