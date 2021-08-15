@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.scss';
@@ -13,6 +13,14 @@ const Home = ({ pizzas, toppings }) => {
   const [modalStatus, setModalStatus] = useState(false);
   const [targetPizza, setTargetPizza] = useState({});
   const [pizzaInBasket, setPizzaInBasket] = useState([]);
+  const [total, setTotal] = useState(0);
+
+  useEffect(() => {
+    const totalPrice = pizzaInBasket.reduce((accumulator, value) => {
+      return accumulator + value.totalPrice;
+    }, 0);
+    setTotal(totalPrice);
+  }, [pizzaInBasket]);
 
   const handleBasketAddition = (newPizza) => {
     for (var i = 0; i < pizzaInBasket.length; i++) {
@@ -85,6 +93,9 @@ const Home = ({ pizzas, toppings }) => {
             </div>
           );
         })}
+        <div>
+          ${total} HKD
+        </div>
         <div>
           <Button
             variant="contained"
