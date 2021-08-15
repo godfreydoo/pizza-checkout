@@ -38,6 +38,11 @@ const Home = ({ pizzas, toppings }) => {
     setPizzaInBasket(pizzaToKeep);
   };
 
+  const handleCheckout = () => {
+    window.alert('Proceed to payment page');
+    setPizzaInBasket([]);
+  };
+
   return (
     <div className={styles.container}>
       {modalStatus &&
@@ -100,13 +105,13 @@ const Home = ({ pizzas, toppings }) => {
           <Button
             variant="contained"
             disabled={pizzaInBasket.length === 0}
+            onClick={handleCheckout}
+            data-testid="checkout-button"
           >
             <div>Checkout</div>
           </Button>
         </div>
-
       </div>
-
     </div>
   );
 };
