@@ -34,15 +34,19 @@ const Selection = function ( {toppings, targetPizza, handleBasketChange, setModa
   };
 
   const addPizzaToBasket = () => {
-    const toppingsToAdd = findToppingsToAdd(selectedToppings);
-    const pizza = {
-      name: targetPizza.name,
-      toppings: toppingsToAdd,
-      size: selectedSize,
-      totalPrice: totalPrice
-    };
-    handleBasketChange(pizza);
-    setModalStatus(false);
+    if (!selectedSize) {
+      window.alert('Please select a pizza size');
+    } else {
+      const pizza = {
+        name: targetPizza.name,
+        toppings: findToppingsToAdd(selectedToppings),
+        size: selectedSize,
+        totalPrice: totalPrice,
+        count: 1
+      };
+      handleBasketChange(pizza);
+      setModalStatus(false);
+    }
   };
 
   return (
@@ -60,21 +64,21 @@ const Selection = function ( {toppings, targetPizza, handleBasketChange, setModa
       </div>
 
       <Radio
-        checked={selectedSize === 'large'}
+        checked={selectedSize === 'Large'}
         onChange={handleSelectedSizeAndPrice}
         value="Large"
         name="pizzaSize"
       />
       {`Large - $${targetPizza.price.large}`}
       <Radio
-        checked={selectedSize === 'medium'}
+        checked={selectedSize === 'Medium'}
         onChange={handleSelectedSizeAndPrice}
         value="Medium"
         name="pizzaSize"
       />
       {`Medium - $${targetPizza.price.medium}`}
       <Radio
-        checked={selectedSize === 'small'}
+        checked={selectedSize === 'Small'}
         onChange={handleSelectedSizeAndPrice}
         value="Small"
         name="pizzaSize"

@@ -6,15 +6,23 @@ import Selection from '../components/Selection';
 import ComposeModal from '../components/ComposeModal';
 import Button from '@material-ui/core/Button';
 import { pizzas, toppings } from '../data/pizza';
+import _ from 'lodash';
 
 const Home = ({ pizzas, toppings }) => {
   const [modalStatus, setModalStatus] = useState(false);
   const [targetPizza, setTargetPizza] = useState({});
   const [pizzaInBasket, setPizzaInBasket] = useState([]);
 
-  const handleBasketChange = (pizza) => {
-    setPizzaInBasket(prevPizza => [...prevPizza, pizza]);
+  const handleBasketChange = (newPizza) => {
+    for (var i = 0; i < pizzaInBasket.length; i++) {
+      if (_.isEqual(pizzaInBasket[i], newPizza)) {
+        pizzaInBasket[i].count += 1;
+        return;
+      }
+    }
+    setPizzaInBasket(prevPizza => [...prevPizza, newPizza]);
   };
+  console.log(pizzaInBasket);
 
   return (
     <div className={styles.container}>
@@ -55,7 +63,7 @@ const Home = ({ pizzas, toppings }) => {
           return (
             <div key={pizza}>
               <div >
-                <div>{pizza.size} {pizza.name}</div>
+                <div>{pizza.count}x {pizza.size} {pizza.name}</div>
                 <div>${pizza.totalPrice} HKD</div>
               </div>
               {pizza.toppings.map((topping, index) => {
