@@ -12,7 +12,7 @@ const findToppingsToAdd = (toppings) => {
   return Object.keys(toppings).filter(value => toppings[value] === true);
 };
 
-const Selection = function ( {toppings, targetPizza, handleBasketChange, setModalStatus} ) {
+const Selection = function ( {toppings, targetPizza, handleBasketAddition, setModalStatus} ) {
   const [selectedToppings, setSelectedToppings] = useState({});
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedPrice, setSelectedPrice] = useState(0);
@@ -44,7 +44,7 @@ const Selection = function ( {toppings, targetPizza, handleBasketChange, setModa
         totalPrice: totalPrice,
         count: 1
       };
-      handleBasketChange(pizza);
+      handleBasketAddition(pizza);
       setModalStatus(false);
     }
   };
@@ -102,7 +102,7 @@ const Selection = function ( {toppings, targetPizza, handleBasketChange, setModa
 Selection.propTypes = {
   toppings: PropTypes.array,
   targetPizza: PropTypes.object,
-  handleBasketChange: PropTypes.func,
+  handleBasketAddition: PropTypes.func,
   setModalStatus: PropTypes.func
 };
 
