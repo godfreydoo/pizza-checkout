@@ -8,6 +8,10 @@ import Button from '@material-ui/core/Button';
 
 const toppingPriceEach = 15;
 
+const findToppingsToAdd = (toppings) => {
+  return Object.keys(toppings).filter(value => toppings[value] === true);
+};
+
 const Selection = function ( {toppings, targetPizza, handleBasketChange, setModalStatus} ) {
   const [selectedToppings, setSelectedToppings] = useState({});
   const [selectedSize, setSelectedSize] = useState('');
@@ -15,9 +19,9 @@ const Selection = function ( {toppings, targetPizza, handleBasketChange, setModa
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
-    const toppingPrice = Object.keys(selectedToppings).length * toppingPriceEach;
+    const toppingPrice = findToppingsToAdd(selectedToppings).length * toppingPriceEach;
     setTotalPrice(Number(selectedPrice) + toppingPrice);
-  }, [selectedToppings, selectedSize, selectedPrice]);
+  }, [selectedToppings, selectedPrice]);
 
   const handleSelectedToppings = (e) => {
     var toAdd = e.target.checked === true;
@@ -30,7 +34,7 @@ const Selection = function ( {toppings, targetPizza, handleBasketChange, setModa
   };
 
   const addPizzaToBasket = () => {
-    const toppingsToAdd = Object.keys(selectedToppings).filter(value => selectedToppings[value] === true);
+    const toppingsToAdd = findToppingsToAdd(selectedToppings);
     const pizza = {
       name: targetPizza.name,
       toppings: toppingsToAdd,
