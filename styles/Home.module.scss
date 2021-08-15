@@ -21,8 +21,16 @@
   flex-direction: column;
   flex-basis: 100%;
   flex: 1;
-  align-items: center;
   margin-top: 3rem;
+}
+
+.basket > section {
+  padding: 10px 20px 10px 0;
+}
+
+.details {
+  display: flex;
+  justify-content: space-between;
 }
 
 .grid {
@@ -35,9 +43,17 @@
   padding: 10px;
   margin: 0 auto;
 
-  @include desktop() {
-    width: 100%;
-    flex-direction: column;
+  @include mobile() {
+    grid-template-columns: repeat(1, 300px);
+  }
+  @include small() {
+    grid-template-columns: repeat(2, 300px);
+  }
+  @include medium() {
+    grid-template-columns: repeat(3, 300px);
+  }
+  @include large() {
+    grid-template-columns: repeat(4, 300px);
   }
 }
 

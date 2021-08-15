@@ -64,7 +64,7 @@ const Home = ({ pizzas, toppings }) => {
                     setModalStatus(true);
                     setTargetPizza(value);
                   }}>
-                  <div>Choose</div>
+                  Choose
                 </Button>
               </div>
             );
@@ -72,30 +72,30 @@ const Home = ({ pizzas, toppings }) => {
         </div>
       </div>
       <div className={styles.basket}>
-        Basket
+        <h1>Basket</h1>
         {pizzaInBasket.map((pizza, index) => {
           return (
-            <div key={pizza}>
-              <div onClick={() => handleBasketDeletion(index)}>
-                <DeleteIcon />
-              </div>
-              <div>
+            <section key={pizza}>
+              <div className={styles.details}>
+                <DeleteIcon onClick={() => handleBasketDeletion(index)}/>
                 <div>{pizza.count}x {pizza.size} {pizza.name}</div>
                 <div>${pizza.totalPrice} HKD</div>
               </div>
-              {pizza.toppings.map((topping, index) => {
-                if (index !== (pizza.toppings.length - 1)) {
-                  return <span key={index}>{topping},  </span>;
-                } else {
-                  return <span key={index}>{topping} </span>;
-                }
-              })}
-            </div>
+              <div>
+                {pizza.toppings.map((topping, index) => {
+                  if (index !== (pizza.toppings.length - 1)) {
+                    return <span key={index}>{topping},  </span>;
+                  } else {
+                    return <span key={index}>{topping} </span>;
+                  }
+                })}
+              </div>
+            </section>
           );
         })}
-        <div>
-          ${total} HKD
-        </div>
+        <p>
+          Total: ${total} HKD
+        </p>
         <div>
           <Button
             variant="contained"
@@ -104,6 +104,7 @@ const Home = ({ pizzas, toppings }) => {
             <div>Checkout</div>
           </Button>
         </div>
+
       </div>
 
     </div>

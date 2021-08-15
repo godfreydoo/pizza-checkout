@@ -28,7 +28,7 @@ const ComposeModal = (props) => {
       <Fade in={showModal}>
         <div className={styles.modal}>
           <div className={styles.header}>
-            <h1>Choose toppings and pizza size</h1>
+            <h1 className={styles.title}>Choose toppings and pizza size</h1>
             <Button
               endIcon={<CloseIcon />}
               role="button"

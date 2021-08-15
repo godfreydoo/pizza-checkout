@@ -85,7 +85,7 @@ const Selection = function ( {toppings, targetPizza, handleBasketAddition, setMo
       />
       {`Small - $${targetPizza.price.small}`}
 
-      <div>Total Price is ${totalPrice} HKD</div>
+      <p>Total Price is ${totalPrice} HKD</p>
 
       <div>
         <Button
