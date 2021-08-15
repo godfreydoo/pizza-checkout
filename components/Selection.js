@@ -17,6 +17,7 @@ const Selection = function ( {toppings, targetPizza, handleBasketAddition, setMo
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedPrice, setSelectedPrice] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [errorMsg, setErrorMsg] = useState('');
 
   useEffect(() => {
     const toppingPrice = findToppingsToAdd(selectedToppings).length * toppingPriceEach;
@@ -35,7 +36,7 @@ const Selection = function ( {toppings, targetPizza, handleBasketAddition, setMo
 
   const addPizzaToBasket = () => {
     if (!selectedSize) {
-      window.alert('Please select a pizza size');
+      setErrorMsg('Please select a pizza size');
     } else {
       const pizza = {
         name: targetPizza.name,
@@ -56,7 +57,7 @@ const Selection = function ( {toppings, targetPizza, handleBasketAddition, setMo
         {toppings.map((value, index) => {
           return (
             <div key={index}>
-              <Checkbox value={value} onChange={handleSelectedToppings} />
+              <Checkbox value={value} onChange={handleSelectedToppings} data-testid={`topping-checkbox-${value}`}/>
               {value}
             </div>
           );
@@ -68,22 +69,33 @@ const Selection = function ( {toppings, targetPizza, handleBasketAddition, setMo
         onChange={handleSelectedSizeAndPrice}
         value="Large"
         name="pizzaSize"
+        id="Large"
       />
-      {`Large - $${targetPizza.price.large}`}
+      <label htmlFor="Large">
+        {`Large - $${targetPizza.price.large}`}
+      </label>
       <Radio
         checked={selectedSize === 'Medium'}
         onChange={handleSelectedSizeAndPrice}
         value="Medium"
         name="pizzaSize"
+        id="Medium"
       />
-      {`Medium - $${targetPizza.price.medium}`}
+      <label htmlFor="Medium">
+        {`Medium - $${targetPizza.price.medium}`}
+      </label>
       <Radio
         checked={selectedSize === 'Small'}
         onChange={handleSelectedSizeAndPrice}
         value="Small"
         name="pizzaSize"
+        id="Small"
       />
-      {`Small - $${targetPizza.price.small}`}
+      <label htmlFor="Small">
+        {`Small - $${targetPizza.price.small}`}
+      </label>
+
+      {errorMsg && <p className={styles.error}>{errorMsg}</p>}
 
       <p>Total Price is ${totalPrice} HKD</p>
 
@@ -91,6 +103,7 @@ const Selection = function ( {toppings, targetPizza, handleBasketAddition, setMo
         <Button
           variant="contained"
           onClick={addPizzaToBasket}
+          data-testid="add-basket-button"
         >
           <div>Add to Basket</div>
         </Button>

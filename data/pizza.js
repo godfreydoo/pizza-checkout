@@ -92,6 +92,6 @@ module.exports.toppings = [
   'Italian Sausage',
   'Extra Cheese',
   'Pineapple',
-  'Bell pepper',
+  'Bell Pepper',
   'Grilled Chicken',
 ];

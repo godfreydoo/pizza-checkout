@@ -33,14 +33,12 @@ const Home = ({ pizzas, toppings }) => {
   };
 
   const handleBasketDeletion = (index) => {
-    console.log(index);
     const pizzaToKeep = pizzaInBasket.slice();
     const pizzaToRemove = pizzaToKeep.splice(index, 1);
     setPizzaInBasket(pizzaToKeep);
   };
 
   const handleCheckout = () => {
-    window.alert('Proceed to payment page');
     setPizzaInBasket([]);
   };
 
