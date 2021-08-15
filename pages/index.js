@@ -10,10 +10,24 @@ import { pizzas, toppings } from '../data/pizza';
 const Home = ({ pizzas, toppings }) => {
   const [modalStatus, setModalStatus] = useState(false);
   const [targetPizza, setTargetPizza] = useState({});
+  const [pizzaInBasket, setPizzaInBasket] = useState([]);
+
+  const handleBasketChange = (pizza) => {
+    setPizzaInBasket(prevPizza => [...prevPizza, pizza]);
+  };
 
   return (
     <div className={styles.container}>
-      {modalStatus && <ComposeModal setModalStatus={setModalStatus} body={<Selection toppings={toppings} targetPizza={targetPizza}/>}/>}
+      {modalStatus &&
+      <ComposeModal
+        setModalStatus={setModalStatus}
+        body={<Selection
+          handleBasketChange={handleBasketChange}
+          toppings={toppings}
+          targetPizza={targetPizza}
+          setModalStatus={setModalStatus}
+        />}
+      />}
 
       <div className={styles.pizza}>
         <div className={styles.grid}>
@@ -36,7 +50,25 @@ const Home = ({ pizzas, toppings }) => {
         </div>
       </div>
       <div className={styles.basket}>
-          Checkout
+        Checkout Basket
+        {pizzaInBasket.map((value, index) => {
+          console.log(value);
+          return (
+            <div key={index}>
+              <div >
+                <div>{value.name}</div>
+                <div>${value.totalPrice} HKD</div>
+              </div>
+              {value.toppings.map((value, index) => {
+                if (index !== 0) {
+                  return <span key={index}>{value} </span>;
+                } else {
+                  return <span key={index}>{value}, </span>;
+                }
+              })}
+            </div>
+          );
+        })}
       </div>
 
     </div>

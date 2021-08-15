@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../styles/Selection.module.scss';
 import PropTypes from 'prop-types';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -6,10 +6,18 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Button from '@material-ui/core/Button';
 
-const Selection = function ( {toppings, targetPizza} ) {
+const toppingPriceEach = 15;
+
+const Selection = function ( {toppings, targetPizza, handleBasketChange, setModalStatus} ) {
   const [selectedToppings, setSelectedToppings] = useState({});
   const [selectedSize, setSelectedSize] = useState('');
-  const [selectedPrice, setSelectedPrice] = useState('');
+  const [selectedPrice, setSelectedPrice] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  useEffect(() => {
+    const toppingPrice = Object.keys(selectedToppings).length * toppingPriceEach;
+    setTotalPrice(Number(selectedPrice) + toppingPrice);
+  }, [selectedToppings, selectedSize, selectedPrice]);
 
   const handleSelectedToppings = (e) => {
     var toAdd = e.target.checked === true;
@@ -21,8 +29,21 @@ const Selection = function ( {toppings, targetPizza} ) {
     setSelectedPrice(targetPizza.price[e.target.value]);
   };
 
+  const addPizzaToBasket = () => {
+    const toppingsToAdd = Object.keys(selectedToppings).filter(value => selectedToppings[value] === true);
+    const pizza = {
+      name: targetPizza.name,
+      toppings: toppingsToAdd,
+      size: selectedSize,
+      totalPrice: totalPrice
+    };
+    handleBasketChange(pizza);
+    setModalStatus(false);
+  };
+
   return (
     <div>
+      <p>Toppings are $15 each</p>
       <div className={styles.toppings}>
         {toppings.map((value, index) => {
           return (
@@ -33,7 +54,6 @@ const Selection = function ( {toppings, targetPizza} ) {
           );
         })}
       </div>
-
 
       <Radio
         checked={selectedSize === 'large'}
@@ -57,9 +77,12 @@ const Selection = function ( {toppings, targetPizza} ) {
       />
       {`Small - $${targetPizza.price.small}`}
 
+      <div>Total Price is ${totalPrice} HKD</div>
+
       <div>
         <Button
           variant="contained"
+          onClick={addPizzaToBasket}
         >
           <div>Add to Basket</div>
         </Button>
@@ -70,7 +93,9 @@ const Selection = function ( {toppings, targetPizza} ) {
 
 Selection.propTypes = {
   toppings: PropTypes.array,
-  targetPizza: PropTypes.object
+  targetPizza: PropTypes.object,
+  handleBasketChange: PropTypes.func,
+  setModalStatus: PropTypes.func
 };
 
 export default Selection;
