@@ -1,6 +1,6 @@
 .modal {
   width: 40%;
-  height: 65%;
+  height: 60%;
   border: 2px solid #000;
   background-color: white;
   padding: 16px 32px 24px;
@@ -10,4 +10,11 @@
 .header {
   display: flex;
   justify-content: space-between;
+}
+
+.toppings {
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
 }
