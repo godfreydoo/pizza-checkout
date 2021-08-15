@@ -3,9 +3,9 @@ import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.scss';
 import Selection from '../components/Selection';
+import Basket from '../components/Basket';
 import ComposeModal from '../components/ComposeModal';
 import Button from '@material-ui/core/Button';
-import DeleteIcon from '@material-ui/icons/Delete';
 import { pizzas, toppings } from '../data/pizza';
 import _ from 'lodash';
 
@@ -33,6 +33,7 @@ const Home = ({ pizzas, toppings }) => {
   };
 
   const handleBasketDeletion = (index) => {
+    console.log(index);
     const pizzaToKeep = pizzaInBasket.slice();
     const pizzaToRemove = pizzaToKeep.splice(index, 1);
     setPizzaInBasket(pizzaToKeep);
@@ -76,42 +77,11 @@ const Home = ({ pizzas, toppings }) => {
           })}
         </div>
       </div>
-      <div className={styles.basket}>
-        <h1>Basket</h1>
-        {pizzaInBasket.map((pizza, index) => {
-          return (
-            <section key={pizza}>
-              <div className={styles.details}>
-                <DeleteIcon onClick={() => handleBasketDeletion(index)}/>
-                <div>{pizza.count}x {pizza.size} {pizza.name}</div>
-                <div>${pizza.totalPrice} HKD</div>
-              </div>
-              <div>
-                {pizza.toppings.map((topping, index) => {
-                  if (index !== (pizza.toppings.length - 1)) {
-                    return <span key={index}>{topping},  </span>;
-                  } else {
-                    return <span key={index}>{topping} </span>;
-                  }
-                })}
-              </div>
-            </section>
-          );
-        })}
-        <p>
-          Total: ${total} HKD
-        </p>
-        <div>
-          <Button
-            variant="contained"
-            disabled={pizzaInBasket.length === 0}
-            onClick={handleCheckout}
-            data-testid="checkout-button"
-          >
-            <div>Checkout</div>
-          </Button>
-        </div>
-      </div>
+      <Basket
+        pizzaInBasket={pizzaInBasket}
+        handleBasketDeletion={handleBasketDeletion}
+        total={total}
+        handleCheckout={handleCheckout}/>
     </div>
   );
 };

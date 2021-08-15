@@ -5,9 +5,9 @@
 npm install
 ```
 3. Run command to interact with pizza checkout http://localhost:3000/. Functionality includes:
-- - choosing a pizza, its toppings, and size
-- - adding to and removing from basket functionality
-- - price calculation based on pizza size and number of toppings selected
+- choosing a pizza, its toppings, and size
+- adding to and removing from basket functionality
+- price calculation based on pizza size and number of toppings selected
 ```bash
 npm run dev
 ```
