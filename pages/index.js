@@ -51,19 +51,18 @@ const Home = ({ pizzas, toppings }) => {
       </div>
       <div className={styles.basket}>
         Checkout Basket
-        {pizzaInBasket.map((value, index) => {
-          console.log(value);
+        {pizzaInBasket.map((pizza, index) => {
           return (
-            <div key={index}>
+            <div key={pizza}>
               <div >
-                <div>{value.name}</div>
-                <div>${value.totalPrice} HKD</div>
+                <div>{pizza.size} {pizza.name}</div>
+                <div>${pizza.totalPrice} HKD</div>
               </div>
-              {value.toppings.map((value, index) => {
-                if (index !== 0) {
-                  return <span key={index}>{value} </span>;
+              {pizza.toppings.map((topping, index) => {
+                if (index !== (pizza.toppings.length - 1)) {
+                  return <span key={index}>{topping},  </span>;
                 } else {
-                  return <span key={index}>{value}, </span>;
+                  return <span key={index}>{topping} </span>;
                 }
               })}
             </div>

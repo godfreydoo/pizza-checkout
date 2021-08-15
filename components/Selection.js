@@ -30,7 +30,7 @@ const Selection = function ( {toppings, targetPizza, handleBasketChange, setModa
 
   const handleSelectedSizeAndPrice = (e) => {
     setSelectedSize(e.target.value);
-    setSelectedPrice(targetPizza.price[e.target.value]);
+    setSelectedPrice(targetPizza.price[e.target.value.toLowerCase()]);
   };
 
   const addPizzaToBasket = () => {
@@ -62,21 +62,21 @@ const Selection = function ( {toppings, targetPizza, handleBasketChange, setModa
       <Radio
         checked={selectedSize === 'large'}
         onChange={handleSelectedSizeAndPrice}
-        value="large"
+        value="Large"
         name="pizzaSize"
       />
       {`Large - $${targetPizza.price.large}`}
       <Radio
         checked={selectedSize === 'medium'}
         onChange={handleSelectedSizeAndPrice}
-        value="medium"
+        value="Medium"
         name="pizzaSize"
       />
       {`Medium - $${targetPizza.price.medium}`}
       <Radio
         checked={selectedSize === 'small'}
         onChange={handleSelectedSizeAndPrice}
-        value="small"
+        value="Small"
         name="pizzaSize"
       />
       {`Small - $${targetPizza.price.small}`}
